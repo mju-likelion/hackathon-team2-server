@@ -1,40 +1,16 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# 🦄 Hackathon-team2-server
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## ❤️ Project
+프로젝트 설명
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## 🍇 Main Function
+주요 기능 소개
 
-## Description
-
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
-## Installation
-
+## 🤔 How to start?
 ```bash
+# installation
 $ yarn install
-```
 
-## Running the app
-
-```bash
 # development
 $ yarn run start
 
@@ -45,28 +21,55 @@ $ yarn run start:dev
 $ yarn run start:prod
 ```
 
-## Test
+## 🐟 Tech Stack
+![NestJS](https://img.shields.io/badge/NestJS-E0234E?style=for-the-badge&logo=nestjs&logoColor=white)
 
+## 🐹 Developers
+|<img src="https://github.com/hy5sun.png" width="80">|<img src="https://github.com/zelkovaria.png" width="80">|
+|:---:|:---:|
+|[김효선](https://github.com/hy5sun)|[정혜인](https://github.com/zelkovaria)
+|BackEnd|BackEnd|
+
+## 🥦 File Tree
 ```bash
-# unit tests
-$ yarn run test
-
-# e2e tests
-$ yarn run test:e2e
-
-# test coverage
-$ yarn run test:cov
+📦hackathon-team2-server
+ ┣ 📂src
+ ┃ ┣ 📜app.module.ts
+ ┃ ┗ 📜main.ts
+ ┣ 📂test
+ ┃ ┣ 📜app.e2e-spec.ts
+ ┃ ┗ 📜jest-e2e.json
+ ┣ 📜.eslintrc.js
+ ┣ 📜.gitignore
+ ┣ 📜.prettierrc
+ ┣ 📜nest-cli.json
+ ┣ 📜package.json
+ ┣ 📜README.md
+ ┣ 📜tsconfig.build.json
+ ┣ 📜tsconfig.json
+ ┗ 📜yarn.lock
 ```
 
-## Support
+## 📠 Convention
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+### 🤝 Branch Naming Convention
 
-## Stay in touch
+|  머릿말      | 설명        |
+| ----------- | ---------- |
+| master      | 서비스 브랜치    |
+| feature     | 기능 단위 구현    |
+| hotfix      | 서비스 중 긴급 수정 건에 대한 처리   |
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+### 🤝 Commit Convention
+
+|  머릿말     | 설명        |
+| ----------- | ---------- |
+| feat        | 기능 구현, 추가   |
+| setting     | 패키지 설치, 개발 설정    |
+| refactor    | 코드 리팩터링    |
+| fix         | 버그 수정, 예외 케이스 대응, 기능 개선   |
+| docs        | README.md 작성, 주석 작성   |
+| chore       | 기타 작업  |
 
 ## License
 
