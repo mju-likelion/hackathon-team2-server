@@ -1,15 +1,23 @@
 <div align=center>
-	<img src="https://capsule-render.vercel.app/api?type=waving&color=f092a5&height=200&section=header&text=team2-server%20&fontSize=80" />	
+	<img src="https://capsule-render.vercel.app/api?type=waving&color=f092a5&height=200&section=header&text=team2-server🦄%20&fontSize=80" />	
 </div>
 # 🦄 Hackathon-team2-server
 
-## ❤️ Project
-프로젝트 설명
+<div align=center>
+	<h2>❤️ Project</h2>
+	<p>프로젝트 설명</p>
+</div>
 
-## 🍇 Main Function
-주요 기능 소개
 
-## 🤔 How to start?
+<div align=center>
+	<h2>🍇 Main Function</h2>
+	<p>주요 기능 소개</p>
+</div>
+
+<div align=center>
+	<h2>🤔 How to start?</h2>
+</div>
+
 ```bash
 # installation
 $ yarn install
@@ -24,16 +32,26 @@ $ yarn run start:dev
 $ yarn run start:prod
 ```
 
-## 🐟 Tech Stack
-![NestJS](https://img.shields.io/badge/NestJS-E0234E?style=for-the-badge&logo=nestjs&logoColor=white)
+<div align=center>
+	<h2>🐟 Tech Stack</h2>
+<!-- </div>
+<div align=center> -->
+	<img src=https://img.shields.io/badge/NestJS-E0234E?style=for-the-badge&logo=nestjs&logoColor=white/>
+</div>
 
-## 🐹 Developers
+<div align=center>
+	<h2>🐹 Developers</h2>
+</div>
+
 |<img src="https://github.com/hy5sun.png" width="80">|<img src="https://github.com/zelkovaria.png" width="80">|
 |:---:|:---:|
 |[김효선](https://github.com/hy5sun)|[정혜인](https://github.com/zelkovaria)
 |BackEnd|BackEnd|
 
-## 🥦 File Tree
+<div align=center>
+	<h2>🥦 File Tree</h2>
+</div>
+
 ```bash
 📦hackathon-team2-server
  ┣ 📂src
@@ -53,7 +71,10 @@ $ yarn run start:prod
  ┗ 📜yarn.lock
 ```
 
-## 📠 Convention
+<div align=center>
+	<h1>📠 Convention</h1>
+</div>
+
 
 ### 🤝 Branch Naming Convention
 
