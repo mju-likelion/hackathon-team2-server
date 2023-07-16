@@ -1,3 +1,6 @@
+<div align=center>
+	<img src="https://capsule-render.vercel.app/api?type=waving&color=f092a5&height=200&section=header&text=team2-server%20&fontSize=80" />	
+</div>
 # 🦄 Hackathon-team2-server
 
 ## ❤️ Project
