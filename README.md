@@ -1,7 +1,6 @@
 <div align=center>
 	<img src="https://capsule-render.vercel.app/api?type=waving&color=f092a5&height=200&section=header&text=team2-server🦄%20&fontSize=80" />	
 </div>
-# 🦄 Hackathon-team2-server
 
 <div align=center>
 	<h2>❤️ Project</h2>
@@ -19,24 +18,34 @@
 </div>
 
 ```bash
+# git clone
+$ git clone https://github.com/mju-likelion/hackathon-team2-server.git
+
 # installation
 $ yarn install
 
 # development
 $ yarn run start
-
-# watch mode
-$ yarn run start:dev
-
-# production mode
-$ yarn run start:prod
 ```
-
 <div align=center>
-	<h2>🐟 Tech Stack</h2>
-<!-- </div>
-<div align=center> -->
-	<img src=https://img.shields.io/badge/NestJS-E0234E?style=for-the-badge&logo=nestjs&logoColor=white/>
+  <h2>🐟 Stacks</h2>
+  
+### Environment
+![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-007ACC?style=for-the-badge&logo=Visual%20Studio%20Code&logoColor=white)
+![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=Git&logoColor=white)
+![Github](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&logoColor=white)             
+
+### Config
+![yarn](https://img.shields.io/badge/yarn-2C8EBB?style=for-the-badge&logo=yarn&logoColor=white)        
+
+### Development
+![nestJS](https://img.shields.io/badge/NestJS-E0234E?style=for-the-badge&logo=nestjs&logoColor=white)
+
+### Communication
+![Slack](https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=Slack&logoColor=white)
+![Notion](https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=Notion&logoColor=white)
+![GoogleMeet](https://img.shields.io/badge/GoogleMeet-00897B?style=for-the-badge&logo=Google%20Meet&logoColor=white)
+
 </div>
 
 <div align=center>
@@ -49,29 +58,6 @@ $ yarn run start:prod
 |BackEnd|BackEnd|
 
 <div align=center>
-	<h2>🥦 File Tree</h2>
-</div>
-
-```bash
-📦hackathon-team2-server
- ┣ 📂src
- ┃ ┣ 📜app.module.ts
- ┃ ┗ 📜main.ts
- ┣ 📂test
- ┃ ┣ 📜app.e2e-spec.ts
- ┃ ┗ 📜jest-e2e.json
- ┣ 📜.eslintrc.js
- ┣ 📜.gitignore
- ┣ 📜.prettierrc
- ┣ 📜nest-cli.json
- ┣ 📜package.json
- ┣ 📜README.md
- ┣ 📜tsconfig.build.json
- ┣ 📜tsconfig.json
- ┗ 📜yarn.lock
-```
-
-<div align=center>
 	<h1>📠 Convention</h1>
 </div>
 
@@ -80,7 +66,8 @@ $ yarn run start:prod
 
 |  머릿말      | 설명        |
 | ----------- | ---------- |
-| master      | 서비스 브랜치    |
+| main      | 서비스 브랜치    |
+| develop     | 배포 전 작업 기준    |
 | feature     | 기능 단위 구현    |
 | hotfix      | 서비스 중 긴급 수정 건에 대한 처리   |
 
