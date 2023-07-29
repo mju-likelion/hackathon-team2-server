@@ -11,48 +11,36 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-model Store {
-  storeId          String             @id @default(uuid())
-  localName        String
-  placeName        String
-  createdAt        DateTime           @default(now()) @db.Date
-  updatedAt        DateTime           @updatedAt
-  deletedAt        DateTime?
-  StoreLocation    StoreLocation[]
-  StoreCategory    StoreCategory[]
-  StoreInformation StoreInformation[]
-}
-
 model StoreLocation {
-  storeLocationId String    @id @default(uuid())
+  storeLocationId String           @id @default(uuid())
   latitude        String
   longitude       String
   fullAddress     String
   roadNameAddress String
-  createdAt       DateTime  @default(now()) @db.Date
-  updatedAt       DateTime  @updatedAt
+  createdAt       DateTime         @default(now()) @db.Date
+  updatedAt       DateTime         @updatedAt
   deletedAt       DateTime?
-  storeId         Store     @relation(references: [storeId], fields: [storeLocationId])
+  storeId         StoreInformation @relation(references: [storeInformationId], fields: [storeLocationId])
 }
 
 model StoreCategory {
-  storeCategoryId String    @id @default(uuid())
+  storeCategoryId String           @id @default(uuid())
   categoryDetail  String?
   code            String?
-  createdAt       DateTime  @default(now()) @db.Date
-  updatedAt       DateTime  @updatedAt
+  createdAt       DateTime         @default(now()) @db.Date
+  updatedAt       DateTime         @updatedAt
   deletedAt       DateTime?
-  storeId         Store     @relation(references: [storeId], fields: [storeCategoryId])
+  storeId         StoreInformation @relation(references: [storeInformationId], fields: [storeCategoryId])
 }
 
 model StoreInformation {
-  storeInformationId String    @id @default(uuid())
+  storeInformationId String          @id @default(uuid())
+  placeName          String
   phoneNumber        String?
   category           String?
-  BCStore            String?
-  registeredAt       String?
-  createdAt          DateTime  @default(now()) @db.Date
-  updatedAt          DateTime  @updatedAt
+  createdAt          DateTime        @default(now()) @db.Date
+  updatedAt          DateTime        @updatedAt
   deletedAt          DateTime?
-  storeId            Store     @relation(references: [storeId], fields: [storeInformationId])
+  StoreLocation      StoreLocation[]
+  StoreCategory      StoreCategory[]
 }
