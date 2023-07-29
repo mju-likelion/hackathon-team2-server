@@ -19,7 +19,6 @@ model Store {
   updatedAt        DateTime           @updatedAt
   deletedAt        DateTime?
   StoreLocation    StoreLocation[]
-  StoreAddress     StoreAddress[]
   StoreCategory    StoreCategory[]
   StoreInformation StoreInformation[]
 }
@@ -34,21 +33,6 @@ model StoreLocation {
   updatedAt       DateTime  @updatedAt
   deletedAt       DateTime?
   storeId         Store     @relation(references: [storeId], fields: [storeLocationId])
-}
-
-model StoreAddress {
-  storeAddressId  String    @id @default(uuid())
-  fullAddress     String
-  firstAddress    String
-  secondAddress   String
-  thirdAddress    String
-  streetAddress   String
-  roadNameAddress String
-  zipCode         String?
-  createdAt       DateTime  @default(now()) @db.Date
-  updatedAt       DateTime  @updatedAt
-  deletedAt       DateTime?
-  storeId         Store     @relation(references: [storeId], fields: [storeAddressId])
 }
 
 model StoreCategory {
