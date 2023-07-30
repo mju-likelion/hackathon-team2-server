@@ -5,8 +5,13 @@ import { KakaoService } from './kakao.service';
 export class KakaoController {
   constructor(private readonly kakaoService: KakaoService) {}
 
-  @Get()
+  @Get('/getCoordinate')
   addressToCoordinate(@Query('query') fullAddress: string) {
     return this.kakaoService.addressToCoordinate(fullAddress);
+  }
+
+  @Get('/getPhone')
+  searchWithKeyword(@Query('query') placeName, latitude, longitude) {
+    return this.kakaoService.searchWithKeyword(placeName, latitude, longitude);
   }
 }
