@@ -25,6 +25,11 @@ export class StoreService {
         const longitude = (
           await this.kakaoService.addressToCoordinate(row['지번주소'])
         ).longitude;
+        const phoneNumber = await this.kakaoService.searchWithKeyword(
+          row['가맹점명칭'],
+          latitude,
+          longitude,
+        );
 
         try {
           await this.prismaService.storeLocation.create({
@@ -40,11 +45,7 @@ export class StoreService {
             data: {
               placeName: row['가맹점명칭'],
               category: row['업종'],
-              phoneNumber: await this.kakaoService.searchWithKeyword(
-                row['가맹점명칭'],
-                latitude,
-                longitude,
-              ),
+              phoneNumber: phoneNumber,
             },
           });
         } catch (e) {

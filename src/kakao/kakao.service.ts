@@ -35,7 +35,11 @@ export class KakaoService {
       },
     });
 
-    const phoneNumber = response.data.documents[0].phone;
-    return phoneNumber;
+    try {
+      const phoneNumber = response.data.documents[0].phone;
+      return phoneNumber;
+    } catch (e) {
+      return null;
+    }
   }
 }
