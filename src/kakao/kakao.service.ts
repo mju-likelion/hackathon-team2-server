@@ -36,6 +36,6 @@ export class KakaoService {
     });
 
     const phoneNumber = response.data.documents[0].phone;
-    return { phoneNumber: phoneNumber };
+    return phoneNumber;
   }
 }
