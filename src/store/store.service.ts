@@ -12,6 +12,20 @@ export class StoreService {
     private readonly kakaoService: KakaoService,
   ) {}
 
+  async nameToCode(name: string) {
+    try {
+      const store = await this.prismaService.category.findFirst({
+        where: {
+          name: name,
+        },
+      });
+      console.log(store.code);
+      return store.code;
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   async parseCsv() {
     const absoluteFilePath = process.env.CSV_FILE_PATH;
 
@@ -32,7 +46,7 @@ export class StoreService {
         );
 
         try {
-          await this.prismaService.storeLocation.create({
+          const location = await this.prismaService.storeLocation.create({
             data: {
               latitude: latitude,
               longitude: longitude,
@@ -41,10 +55,11 @@ export class StoreService {
             },
           });
 
-          await this.prismaService.storeInformation.create({
+          await this.prismaService.store.create({
             data: {
-              placeName: row['가맹점명칭'],
-              category: row['업종'],
+              locationId: location.id,
+              categoryCode: await this.nameToCode(row['업종']),
+              name: row['가맹점명칭'],
               phoneNumber: phoneNumber,
             },
           });
