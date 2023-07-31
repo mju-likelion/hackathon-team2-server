@@ -5,7 +5,7 @@ import { StoreService } from './store.service';
 export class StoreController {
   constructor(private readonly storeService: StoreService) {}
 
-  @Get()
+  @Post()
   saveStoreData() {
     return this.storeService.parseCsv();
   }
