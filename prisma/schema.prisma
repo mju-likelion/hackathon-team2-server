@@ -12,14 +12,14 @@ datasource db {
 }
 
 model StoreLocation {
-  id              String   @id @default(nanoid())
+  id              String   @id @default(uuid())
   latitude        String
   longitude       String
   fullAddress     String
   roadNameAddress String
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
-  stores          Store[]
+  store           Store?
 }
 
 model Category {
@@ -39,5 +39,5 @@ model Store {
   categories   Category      @relation(fields: [categoryCode], references: [code])
   categoryCode String
   location     StoreLocation @relation(fields: [locationId], references: [id])
-  locationId   String
+  locationId   String        @unique
 }
