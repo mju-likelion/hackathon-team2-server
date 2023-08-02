@@ -12,6 +12,7 @@ export class StoreService {
     private readonly kakaoService: KakaoService,
   ) {}
 
+  // 카테고리명 -> 카테고리 코드
   async nameToCode(name: string) {
     try {
       const store = await this.prismaService.category.findFirst({
@@ -24,6 +25,19 @@ export class StoreService {
     } catch (e) {
       console.log(e);
     }
+  }
+
+  // 지번 주소 속 '시, 구' 에 해당하는 문자열을 제외시킴
+  async removeDuplicateStr(roadNameAddress: string, fullAddress: string) {
+    const splitRoadAddress = roadNameAddress.split(' ');
+    const splitFullAdress = fullAddress.split(' ');
+
+    for (let i = 0; i < 2; i++) {
+      if (splitRoadAddress[i] === splitFullAdress[i]) {
+        fullAddress = fullAddress.replace(splitFullAdress[i], '');
+      }
+    }
+    return fullAddress.slice(2);
   }
 
   async parseCsv() {
@@ -42,7 +56,10 @@ export class StoreService {
             data: {
               latitude: store.latitude,
               longitude: store.longitude,
-              fullAddress: store.fullAddress,
+              fullAddress: await this.removeDuplicateStr(
+                store.roadNameAddress,
+                store.fullAddress,
+              ),
               roadNameAddress: store.roadNameAddress,
             },
           });
