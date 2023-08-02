@@ -33,25 +33,17 @@ export class StoreService {
       .pipe(iconv.decodeStream('euc-kr'))
       .pipe(csvParser())
       .on('data', async (row) => {
-        const latitude = (
-          await this.kakaoService.addressToCoordinate(row['지번주소'])
-        ).latitude;
-        const longitude = (
-          await this.kakaoService.addressToCoordinate(row['지번주소'])
-        ).longitude;
-        const phoneNumber = await this.kakaoService.searchWithKeyword(
+        const store = await this.kakaoService.searchWithKeyword(
           row['가맹점명칭'],
-          latitude,
-          longitude,
         );
 
         try {
           const location = await this.prismaService.storeLocation.create({
             data: {
-              latitude: latitude,
-              longitude: longitude,
-              fullAddress: row['지번주소'],
-              roadNameAddress: row['도로명주소'],
+              latitude: store.latitude,
+              longitude: store.longitude,
+              fullAddress: store.fullAddress,
+              roadNameAddress: store.roadNameAddress,
             },
           });
 
@@ -60,7 +52,7 @@ export class StoreService {
               locationId: location.id,
               categoryCode: await this.nameToCode(row['업종']),
               name: row['가맹점명칭'],
-              phoneNumber: phoneNumber,
+              phoneNumber: store.phoneNumber,
             },
           });
         } catch (e) {
