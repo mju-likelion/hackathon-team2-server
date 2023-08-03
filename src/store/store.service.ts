@@ -32,12 +32,13 @@ export class StoreService {
     const splitRoadAddress = roadNameAddress.split(' ');
     const splitFullAdress = fullAddress.split(' ');
 
-    for (let i = 0; i < 2; i++) {
-      if (splitRoadAddress[i] === splitFullAdress[i]) {
-        fullAddress = fullAddress.replace(splitFullAdress[i], '');
+    splitFullAdress.map(function (char, i) {
+      if (splitRoadAddress[i] === char) {
+        fullAddress = fullAddress.replace(char, '').replace(' ', '');
       }
-    }
-    return fullAddress.slice(2);
+    });
+
+    return fullAddress;
   }
 
   async parseCsv() {
@@ -52,26 +53,28 @@ export class StoreService {
         );
 
         try {
-          const location = await this.prismaService.storeLocation.create({
-            data: {
-              latitude: store.latitude,
-              longitude: store.longitude,
-              fullAddress: await this.removeDuplicateStr(
-                store.roadNameAddress,
-                store.fullAddress,
-              ),
-              roadNameAddress: store.roadNameAddress,
-            },
-          });
+          if (store) {
+            const location = await this.prismaService.storeLocation.create({
+              data: {
+                latitude: store.latitude,
+                longitude: store.longitude,
+                fullAddress: await this.removeDuplicateStr(
+                  store.roadNameAddress,
+                  store.fullAddress,
+                ),
+                roadNameAddress: store.roadNameAddress,
+              },
+            });
 
-          await this.prismaService.store.create({
-            data: {
-              locationId: location.id,
-              categoryCode: await this.nameToCode(row['업종']),
-              name: row['가맹점명칭'],
-              phoneNumber: store.phoneNumber,
-            },
-          });
+            await this.prismaService.store.create({
+              data: {
+                locationId: location.id,
+                categoryCode: await this.nameToCode(row['업종']),
+                name: row['가맹점명칭'],
+                phoneNumber: store.phoneNumber,
+              },
+            });
+          }
         } catch (e) {
           console.error(e);
         }
