@@ -14,31 +14,27 @@ export class KakaoService {
       },
     });
 
-    // 경도, 위도, 주소명 값이 없으면 폐점으로 판단
-    try {
-      response.data.documents[0].x;
-      response.data.documents[0].y;
-      response.data.documents[0].road_address_name;
-      response.data.documents[0].address_name;
-    } catch (e) {
-      return;
-    }
+    const datas = response.data.documents[0];
 
-    const storeInf = {
-      latitude: response.data.documents[0].x,
-      longitude: response.data.documents[0].y,
-      roadNameAddress: response.data.documents[0].road_address_name,
-      fullAddress: response.data.documents[0].address_name,
-      phoneNumber: '',
-    };
+    if (datas) {
+      const storeInfo = {
+        latitude: datas.x,
+        longitude: datas.y,
+        roadNameAddress: datas.road_address_name,
+        fullAddress: datas.address_name,
+        phoneNumber: '',
+      };
 
-    // 전화번호 값이 없으면 null 값 return
-    try {
-      storeInf.phoneNumber = response.data.documents[0].phone;
-      return storeInf;
-    } catch (e) {
-      storeInf.phoneNumber = null;
-      return storeInf;
+      // 전화번호 값이 없으면 null 값 return
+      if (!datas.phone) {
+        storeInfo.phoneNumber = null;
+      } else {
+        storeInfo.phoneNumber = datas.phone;
+      }
+
+      return storeInfo;
+    } else {
+      return null;
     }
   }
 }
