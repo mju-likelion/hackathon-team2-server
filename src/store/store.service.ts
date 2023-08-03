@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
 import * as fs from 'fs';
 import * as csvParser from 'csv-parser';
 import * as iconv from 'iconv-lite';
-import { KakaoService } from 'src/kakao/kakao.service';
+import { PrismaService } from '@/prisma/prisma.service';
+import { KakaoService } from '@/kakao/kakao.service';
 
 @Injectable()
 export class StoreService {
