@@ -19,12 +19,25 @@ export class MapService {
       }
     }
 
+    let storeLocation;
+    try {
+      storeLocation = await this.prismaService.storeLocation.findFirstOrThrow({
+        where: {
+          store,
+        },
+      });
+    } catch (e) {
+      if (e.code === 'P2025') {
+        throw new NotFoundException(['존재하는']);
+      }
+    }
+
     return {
       name: store.name,
-      latitude: store.latitude,
-      longitude: store.longitude,
-      roadNameAddress: store.roadNameAddress,
-      fullAddress: store.fullAddress,
+      latitude: storeLocation.latitude,
+      longitude: storeLocation.longitude,
+      roadNameAddress: storeLocation.roadNameAddress,
+      fullAddress: storeLocation.fullAddress,
       phoneNumber: store.phoneNumber,
     };
   }
