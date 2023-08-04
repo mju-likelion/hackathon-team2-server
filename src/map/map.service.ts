@@ -23,7 +23,7 @@ export class MapService {
     try {
       storeLocation = await this.prismaService.storeLocation.findFirstOrThrow({
         where: {
-          store,
+          id: store.locationId,
         },
       });
     } catch (e) {
