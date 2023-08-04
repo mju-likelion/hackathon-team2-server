@@ -32,8 +32,22 @@ export class MapService {
       }
     }
 
+    let category;
+    try {
+      category = await this.prismaService.category.findFirstOrThrow({
+        where: {
+          code: store.categoryCode,
+        },
+      });
+    } catch (e) {
+      if (e.code === 'P2025') {
+        throw new NotFoundException(['존재하는 가맹점 명이 없습니다.']);
+      }
+    }
+
     return {
       name: store.name,
+      category: category.name,
       latitude: storeLocation.latitude,
       longitude: storeLocation.longitude,
       roadNameAddress: storeLocation.roadNameAddress,
