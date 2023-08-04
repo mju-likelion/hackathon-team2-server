@@ -5,8 +5,8 @@ import { MapService } from './map.service';
 export class MapController {
   constructor(private readonly mapService: MapService) {}
 
-  @Get('/:detail')
-  getMapDetail(@Param('detail') id: string) {
+  @Get('/detail/:id')
+  getMapDetail(@Param('id') id: string) {
     return this.mapService.mapDetail(id);
   }
 }
