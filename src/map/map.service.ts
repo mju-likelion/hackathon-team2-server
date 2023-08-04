@@ -28,7 +28,7 @@ export class MapService {
       });
     } catch (e) {
       if (e.code === 'P2025') {
-        throw new NotFoundException(['존재하는']);
+        throw new NotFoundException(['존재하는 가맹점 명이 없습니다.']);
       }
     }
 
