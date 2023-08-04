@@ -24,7 +24,7 @@ model StoreLocation {
 
 model Category {
   code      String   @id
-  name      String
+  name      String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   stores    Store[]
