@@ -12,35 +12,32 @@ datasource db {
 }
 
 model StoreLocation {
-  storeLocationId String           @id @default(uuid())
+  id              String   @id @default(uuid())
   latitude        String
   longitude       String
   fullAddress     String
   roadNameAddress String
-  createdAt       DateTime         @default(now()) @db.Date
-  updatedAt       DateTime         @updatedAt
-  deletedAt       DateTime?
-  storeId         StoreInformation @relation(references: [storeInformationId], fields: [storeLocationId])
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  store           Store?
 }
 
-model StoreCategory {
-  storeCategoryId String           @id @default(uuid())
-  categoryDetail  String?
-  code            String?
-  createdAt       DateTime         @default(now()) @db.Date
-  updatedAt       DateTime         @updatedAt
-  deletedAt       DateTime?
-  storeId         StoreInformation @relation(references: [storeInformationId], fields: [storeCategoryId])
+model Category {
+  code      String   @id
+  name      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  stores    Store[]
 }
 
-model StoreInformation {
-  storeInformationId String          @id @default(uuid())
-  placeName          String
-  phoneNumber        String?
-  category           String?
-  createdAt          DateTime        @default(now()) @db.Date
-  updatedAt          DateTime        @updatedAt
-  deletedAt          DateTime?
-  StoreLocation      StoreLocation[]
-  StoreCategory      StoreCategory[]
+model Store {
+  id           String        @id @default(uuid())
+  name         String
+  phoneNumber  String?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  categories   Category      @relation(fields: [categoryCode], references: [code])
+  categoryCode String
+  location     StoreLocation @relation(fields: [locationId], references: [id])
+  locationId   String        @unique
 }
