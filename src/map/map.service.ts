@@ -7,6 +7,7 @@ export class MapService {
 
   async map(latitude: number, longitude: number, radius: number) {
     let locations;
+    const data = [];
 
     try {
       locations = await this.prismaService.storeLocation.findMany({
@@ -38,7 +39,47 @@ export class MapService {
       throw e;
     }
 
-    return locations;
+    try {
+      for (const location of locations) {
+        const store = await this.prismaService.store.findFirstOrThrow({
+          where: {
+            locationId: location.id,
+          },
+          select: {
+            id: true,
+            name: true,
+            categoryCode: true,
+            createdAt: true,
+            updatedAt: true,
+          },
+        });
+
+        const category = await this.prismaService.category.findUniqueOrThrow({
+          where: {
+            code: store.categoryCode,
+          },
+          select: {
+            name: true,
+          },
+        });
+
+        data.push({
+          id: store.id,
+          name: store.name,
+          category: category.name,
+          latitude: location.latitude,
+          longitude: location.longitude,
+          fullAddress: location.fullAddress,
+          roadNameAddress: location.roadNameAddress,
+          createdAt: store.createdAt,
+          updatedAt: store.updatedAt,
+        });
+      }
+
+      return data;
+    } catch (e) {
+      throw e;
+    }
   }
 
   async mapDetail(id: string) {
