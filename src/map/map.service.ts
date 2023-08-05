@@ -1,9 +1,45 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '@/prisma/prisma.service';
 
 @Injectable()
 export class MapService {
   constructor(private readonly prismaService: PrismaService) {}
+
+  async map(latitude: number, longitude: number, radius: number) {
+    let locations;
+
+    try {
+      locations = await this.prismaService.storeLocation.findMany({
+        where: {
+          latitude: {
+            gte: (latitude - radius / 111.12).toString(),
+            lte: (latitude + radius / 111.12).toString(),
+          },
+          longitude: {
+            gte: (
+              longitude -
+              radius / (111.12 * Math.cos((longitude * Math.PI) / 180))
+            ).toString(),
+            lte: (
+              longitude +
+              radius / (111.12 * Math.cos((longitude * Math.PI) / 180))
+            ).toString(),
+          },
+        },
+        select: {
+          id: true,
+          latitude: true,
+          longitude: true,
+          roadNameAddress: true,
+          fullAddress: true,
+        },
+      });
+    } catch (e) {
+      throw e;
+    }
+
+    return locations;
+  }
 
   async mapDetail(id: string) {
     let store;
