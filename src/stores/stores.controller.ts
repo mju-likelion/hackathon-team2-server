@@ -1,13 +1,13 @@
 import { Controller, Get, Post, Query } from '@nestjs/common';
-import { StoreService } from './store.service';
+import { StoresService } from './stores.service';
 
-@Controller('store')
-export class StoreController {
-  constructor(private readonly storeService: StoreService) {}
+@Controller('stores')
+export class StoresController {
+  constructor(private readonly storesService: StoresService) {}
 
   @Post()
   saveStoreData() {
-    return this.storeService.parseCsv();
+    return this.storesService.parseCsv();
   }
 
   @Get()
@@ -17,7 +17,7 @@ export class StoreController {
     @Query('minLatitude') minLatitude: string,
     @Query('minLongitude') minLongitude: string,
   ) {
-    return this.storeService.getStoreData(
+    return this.storesService.getStoreData(
       maxLatitude,
       maxLongitude,
       minLatitude,

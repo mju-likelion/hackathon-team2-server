@@ -7,7 +7,7 @@ import { KakaoService } from '@/kakao/kakao.service';
 import Decimal from 'decimal.js';
 
 @Injectable()
-export class StoreService {
+export class StoresService {
   constructor(
     private readonly prismaService: PrismaService,
     private readonly kakaoService: KakaoService,
