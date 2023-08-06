@@ -57,8 +57,8 @@ export class StoreService {
           if (store) {
             const location = await this.prismaService.storeLocation.create({
               data: {
-                latitude: store.latitude,
-                longitude: store.longitude,
+                latitude: +store.latitude,
+                longitude: +store.longitude,
                 fullAddress: await this.removeDuplicateStr(
                   store.roadNameAddress,
                   store.fullAddress,
@@ -83,12 +83,12 @@ export class StoreService {
   }
 
   async getStoreData(
-    maxLatitude: number,
-    maxLongitude: number,
-    minLatitude: number,
-    minLongitude: number,
+    maxLatitude: string,
+    maxLongitude: string,
+    minLatitude: string,
+    minLongitude: string,
   ) {
-    let filteredLocation;
+    let locations;
     const data = [];
 
     try {
@@ -97,7 +97,17 @@ export class StoreService {
       const minLat = new Decimal(minLatitude);
       const minLon = new Decimal(minLongitude);
 
-      const locations = await this.prismaService.storeLocation.findMany({
+      locations = await this.prismaService.storeLocation.findMany({
+        where: {
+          latitude: {
+            gte: minLat,
+            lte: maxLat,
+          },
+          longitude: {
+            gte: minLon,
+            lte: maxLon,
+          },
+        },
         select: {
           id: true,
           latitude: true,
@@ -106,17 +116,6 @@ export class StoreService {
           fullAddress: true,
         },
       });
-
-      filteredLocation = locations.filter(function (location) {
-        const lat = new Decimal(location.latitude);
-        const lon = new Decimal(location.longitude);
-        return (
-          lat.gte(minLat) &&
-          lat.lte(maxLat) &&
-          lon.gte(minLon) &&
-          lon.lte(maxLon)
-        );
-      });
     } catch (e) {
       throw new InternalServerErrorException([
         '위치 정보를 가져오는 과정에서 알 수 없는 오류가 발생했습니다.',
@@ -124,7 +123,7 @@ export class StoreService {
     }
 
     try {
-      for (const location of filteredLocation) {
+      for (const location of locations) {
         const store = await this.prismaService.store.findFirstOrThrow({
           where: {
             locationId: location.id,

@@ -12,10 +12,10 @@ export class StoreController {
 
   @Get()
   getStoreDate(
-    @Query('maxLatitude') maxLatitude: number,
-    @Query('maxLongitude') maxLongitude: number,
-    @Query('minLatitude') minLatitude: number,
-    @Query('minLongitude') minLongitude: number,
+    @Query('maxLatitude') maxLatitude: string,
+    @Query('maxLongitude') maxLongitude: string,
+    @Query('minLatitude') minLatitude: string,
+    @Query('minLongitude') minLongitude: string,
   ) {
     return this.storeService.getStoreData(
       maxLatitude,
