@@ -21,7 +21,7 @@ export class MapsService {
 
     let storeLocation;
     try {
-      storeLocation = await this.prismaService.storeLocation.findFirstOrThrow({
+      storeLocation = await this.prismaService.location.findFirstOrThrow({
         where: {
           id: store.locationId,
         },

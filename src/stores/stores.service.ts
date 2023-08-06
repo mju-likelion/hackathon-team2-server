@@ -55,7 +55,7 @@ export class StoresService {
 
         try {
           if (store) {
-            const location = await this.prismaService.storeLocation.create({
+            const location = await this.prismaService.location.create({
               data: {
                 latitude: +store.latitude,
                 longitude: +store.longitude,
@@ -97,7 +97,7 @@ export class StoresService {
       const minLat = new Decimal(minLatitude);
       const minLon = new Decimal(minLongitude);
 
-      locations = await this.prismaService.storeLocation.findMany({
+      locations = await this.prismaService.location.findMany({
         where: {
           latitude: {
             gte: minLat,
