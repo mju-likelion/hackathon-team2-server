@@ -11,7 +11,7 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-model StoreLocation {
+model Location {
   id              String   @id @default(uuid())
   latitude        Decimal
   longitude       Decimal
@@ -40,6 +40,6 @@ model Store {
   updatedAt    DateTime      @updatedAt
   categories   Category      @relation(fields: [categoryCode], references: [code])
   categoryCode String
-  location     StoreLocation @relation(fields: [locationId], references: [id])
+  location     Location @relation(fields: [locationId], references: [id])
   locationId   String        @unique
 }
