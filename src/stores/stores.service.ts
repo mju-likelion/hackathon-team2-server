@@ -146,7 +146,7 @@ export class StoresService {
           },
         });
 
-        const storeData: storeData = {
+        const storeData: StoreData = {
           id: store.id,
           name: store.name,
           category: category.name,
@@ -170,7 +170,7 @@ export class StoresService {
   }
 }
 
-interface storeData {
+interface StoreData {
   id: string;
   name: string;
   category: string;
