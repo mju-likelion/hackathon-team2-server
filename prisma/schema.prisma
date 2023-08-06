@@ -13,13 +13,15 @@ datasource db {
 
 model StoreLocation {
   id              String   @id @default(uuid())
-  latitude        String
-  longitude       String
+  latitude        Decimal
+  longitude       Decimal
   fullAddress     String
   roadNameAddress String
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
   store           Store?
+
+  @@index([latitude(sort: Desc), longitude(sort: Asc)])
 }
 
 model Category {
