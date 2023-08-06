@@ -1,9 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import * as fs from 'fs';
 import * as csvParser from 'csv-parser';
 import * as iconv from 'iconv-lite';
 import { PrismaService } from '@/prisma/prisma.service';
 import { KakaoService } from '@/kakao/kakao.service';
+import Decimal from 'decimal.js';
 
 @Injectable()
 export class StoreService {
@@ -80,4 +81,104 @@ export class StoreService {
         }
       });
   }
+
+  async getStoreData(
+    maxLatitude: number,
+    maxLongitude: number,
+    minLatitude: number,
+    minLongitude: number,
+  ) {
+    let filteredLocation;
+    const data = [];
+
+    try {
+      const maxLat = new Decimal(maxLatitude);
+      const maxLon = new Decimal(maxLongitude);
+      const minLat = new Decimal(minLatitude);
+      const minLon = new Decimal(minLongitude);
+
+      const locations = await this.prismaService.storeLocation.findMany({
+        select: {
+          id: true,
+          latitude: true,
+          longitude: true,
+          roadNameAddress: true,
+          fullAddress: true,
+        },
+      });
+
+      filteredLocation = locations.filter(function (location) {
+        const lat = new Decimal(location.latitude);
+        const lon = new Decimal(location.longitude);
+        return (
+          lat.gte(minLat) &&
+          lat.lte(maxLat) &&
+          lon.gte(minLon) &&
+          lon.lte(maxLon)
+        );
+      });
+    } catch (e) {
+      throw new InternalServerErrorException([
+        '위치 정보를 가져오는 과정에서 알 수 없는 오류가 발생했습니다.',
+      ]);
+    }
+
+    try {
+      for (const location of filteredLocation) {
+        const store = await this.prismaService.store.findFirstOrThrow({
+          where: {
+            locationId: location.id,
+          },
+          select: {
+            id: true,
+            name: true,
+            categoryCode: true,
+            createdAt: true,
+            updatedAt: true,
+          },
+        });
+
+        const category = await this.prismaService.category.findUniqueOrThrow({
+          where: {
+            code: store.categoryCode,
+          },
+          select: {
+            name: true,
+          },
+        });
+
+        const storeData: storeData = {
+          id: store.id,
+          name: store.name,
+          category: category.name,
+          latitude: location.latitude,
+          longitude: location.longitude,
+          fullAddress: location.fullAddress,
+          roadNameAddress: location.roadNameAddress,
+          createdAt: store.createdAt,
+          updatedAt: store.updatedAt,
+        };
+
+        data.push(storeData);
+      }
+
+      return data;
+    } catch (e) {
+      throw new InternalServerErrorException([
+        '가맹점 정보를 가져오는 과정에서 알 수 없는 오류가 발생했습니다.',
+      ]);
+    }
+  }
+}
+
+interface storeData {
+  id: string;
+  name: string;
+  category: string;
+  latitude: string;
+  longitude: string;
+  fullAddress: string;
+  roadNameAddress: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
