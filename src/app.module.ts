@@ -4,6 +4,7 @@ import { KakaoModule } from './kakao/kakao.module';
 import { ConfigModule } from '@nestjs/config';
 import { StoreModule } from './store/store.module';
 import { MapModule } from './map/map.module';
+import { FileModule } from './file/file.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { MapModule } from './map/map.module';
     KakaoModule,
     StoreModule,
     MapModule,
+    FileModule,
   ],
   controllers: [],
   providers: [],
