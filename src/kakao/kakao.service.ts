@@ -20,8 +20,8 @@ export class KakaoService {
 
       if (data) {
         const storeInfo: StoreInfo = {
-          latitude: data.x,
-          longitude: data.y,
+          longitude: data.x,
+          latitude: data.y,
           roadNameAddress: data.road_address_name,
           fullAddress: data.address_name,
           phoneNumber: data.phone || null,

@@ -2,8 +2,8 @@ import { Module } from '@nestjs/common';
 import { PrismaModule } from './prisma/prisma.module';
 import { KakaoModule } from './kakao/kakao.module';
 import { ConfigModule } from '@nestjs/config';
-import { StoreModule } from './store/store.module';
-import { MapModule } from './map/map.module';
+import { StoresModule } from './stores/stores.module';
+import { MapsModule } from './maps/maps.module';
 
 @Module({
   imports: [
@@ -13,8 +13,8 @@ import { MapModule } from './map/map.module';
     }),
     PrismaModule,
     KakaoModule,
-    StoreModule,
-    MapModule,
+    StoresModule,
+    MapsModule,
   ],
   controllers: [],
   providers: [],

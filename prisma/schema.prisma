@@ -6,20 +6,21 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
-model StoreLocation {
+model Location {
   id              String   @id @default(uuid())
-  latitude        String
-  longitude       String
+  latitude        Decimal
+  longitude       Decimal
   fullAddress     String
   roadNameAddress String
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
   store           Store?
+
+  @@index([latitude(sort: Desc), longitude(sort: Asc)])
 }
 
 model Category {
@@ -31,13 +32,13 @@ model Category {
 }
 
 model Store {
-  id           String        @id @default(uuid())
+  id           String   @id @default(uuid())
   name         String
   phoneNumber  String?
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime      @updatedAt
-  categories   Category      @relation(fields: [categoryCode], references: [code])
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  categories   Category @relation(fields: [categoryCode], references: [code])
   categoryCode String
-  location     StoreLocation @relation(fields: [locationId], references: [id])
-  locationId   String        @unique
+  location     Location @relation(fields: [locationId], references: [id])
+  locationId   String   @unique
 }
