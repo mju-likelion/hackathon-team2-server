@@ -5,7 +5,7 @@ import path from 'path';
 import fs from 'fs';
 
 // uploads 폴더가 존재하지 않으면 폴더를 생성하고, 존재하면 생성하지 않습니다.
-const mkdir = (directory: string) => {
+function mkdir(directory: string) {
   const logger = new Logger('Mkdir');
   try {
     fs.readdirSync(path.join(process.cwd(), directory));
@@ -15,10 +15,10 @@ const mkdir = (directory: string) => {
     );
     fs.mkdirSync(path.join(process.cwd(), directory));
   }
-};
+}
 mkdir('uploads');
 
-export const multerOptionsFactory = (): MulterOptions => {
+export function multerOptionsFactory(): MulterOptions {
   return {
     storage: multer.diskStorage({
       destination(req, file, done) {
@@ -36,4 +36,4 @@ export const multerOptionsFactory = (): MulterOptions => {
     }),
     limits: { fileSize: 10 * 1024 * 1024 }, // 10MB로 크기를 제한
   };
-};
+}
