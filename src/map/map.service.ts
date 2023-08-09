@@ -53,6 +53,8 @@ export class MapService {
       roadNameAddress: storeLocation.roadNameAddress,
       fullAddress: storeLocation.fullAddress,
       phoneNumber: store.phoneNumber,
+      createdAt: store.createdAt,
+      updatedAt: store.updatedAt,
     };
   }
 }
