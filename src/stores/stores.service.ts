@@ -1,4 +1,8 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import * as fs from 'fs';
 import * as csvParser from 'csv-parser';
 import * as iconv from 'iconv-lite';
@@ -167,6 +171,59 @@ export class StoresService {
         '가맹점 정보를 가져오는 과정에서 알 수 없는 오류가 발생했습니다.',
       ]);
     }
+  }
+
+  async storeDetail(id: string) {
+    let store;
+    try {
+      store = await this.prismaService.store.findFirstOrThrow({
+        where: {
+          id,
+        },
+      });
+    } catch (e) {
+      if (e.code === 'P2025') {
+        throw new NotFoundException(['존재하는 가맹점 명이 없습니다.']);
+      }
+    }
+
+    let storeLocation;
+    try {
+      storeLocation = await this.prismaService.location.findFirstOrThrow({
+        where: {
+          id: store.locationIdd,
+        },
+      });
+    } catch (e) {
+      if (e.code === 'P2025') {
+        throw new NotFoundException(['존재하는 주소가 없습니다.']);
+      }
+    }
+
+    let category;
+    try {
+      category = await this.prismaService.category.findUniqueOrThrow({
+        where: {
+          code: store.categoryCode,
+        },
+      });
+    } catch (e) {
+      if (e.code === 'P2025') {
+        throw new NotFoundException(['존재하는 카테고리 명이 없습니다.']);
+      }
+    }
+
+    return {
+      name: store.name,
+      category: category.name,
+      latitude: storeLocation.latitude,
+      longitude: storeLocation.longitude,
+      roadNameAddress: storeLocation.roadNameAddress,
+      fullAddress: storeLocation.fullAddress,
+      phoneNumber: store.phoneNumber,
+      createdAt: store.createdAt,
+      updatedAt: store.updatedAt,
+    };
   }
 }
 
