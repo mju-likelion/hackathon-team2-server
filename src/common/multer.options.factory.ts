@@ -19,7 +19,7 @@ export function multerOptionsFactory(): MulterOptions {
       filename(req, file, done) {
         const ext = extname(file.originalname);
         const filename = basename(file.originalname, ext);
-        done(null, `${filename}_${count}${ext}`);
+        done(null, `${filename}${count}${ext}`);
         count += 1;
       },
     }),
