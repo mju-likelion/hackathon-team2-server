@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Query } from '@nestjs/common';
+import { Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { StoresService } from './stores.service';
 
 @Controller('stores')
@@ -23,5 +23,10 @@ export class StoresController {
       minLatitude,
       minLongitude,
     );
+  }
+
+  @Get('/detail/:id')
+  getMapDetail(@Param('id') id: string) {
+    return this.storesService.storeDetail(id);
   }
 }
