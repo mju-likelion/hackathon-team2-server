@@ -30,7 +30,7 @@ export class StoresService {
       console.log(store.code);
       return store.code;
     } catch (e) {
-      console.log(e);
+      return 'FD';
     }
   }
 
