@@ -49,7 +49,7 @@ export class StoresService {
   }
 
   async parseCsv() {
-    const absoluteFilePath = `D:/#codingStudy/파일 업로드/hackathon-team2-server/uploads/seoulStoreInf_${count}.csv`;
+    const absoluteFilePath = `hackathon-team2-server/uploads/seoulStoreInf_${count}.csv`;
     count += 1;
 
     fs.createReadStream(absoluteFilePath)
