@@ -49,7 +49,7 @@ export class StoresService {
   }
 
   async parseCsv() {
-    const absoluteFilePath = `uploads/seoulStoreInf${count}.csv`;
+    const absoluteFilePath = `uploads/seoulStoreInfo${count}.csv`;
     count += 1;
 
     if (!absoluteFilePath) {
