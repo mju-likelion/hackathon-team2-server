@@ -52,6 +52,12 @@ export class StoresService {
     const absoluteFilePath = `uploads/seoulStoreInf${count}.csv`;
     count += 1;
 
+    if (!absoluteFilePath) {
+      throw new NotFoundException([
+        `seoulStoreInfo${count}.cvs 파일이 존재하지 않습니다.`,
+      ]);
+    }
+
     fs.createReadStream(absoluteFilePath)
       .pipe(iconv.decodeStream('euc-kr'))
       .pipe(csvParser())
@@ -84,9 +90,15 @@ export class StoresService {
             });
           }
         } catch (e) {
-          console.error(e);
+          throw new InternalServerErrorException([
+            '데이터를 저장하는 과정에서 알 수 없는 오류가 발생했습니다.',
+          ]);
         }
       });
+
+    return {
+      message: ['데이터를 모두 정상적으로 저장했습니다.'],
+    };
   }
 
   async getStoreData(
