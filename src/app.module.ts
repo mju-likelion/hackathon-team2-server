@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { PrismaModule } from './prisma/prisma.module';
 import { KakaoModule } from './kakao/kakao.module';
 import { ConfigModule } from '@nestjs/config';
+import { FilesModule } from './files/files.module';
 import { StoresModule } from './stores/stores.module';
 
 @Module({
@@ -12,6 +13,7 @@ import { StoresModule } from './stores/stores.module';
     }),
     PrismaModule,
     KakaoModule,
+    FilesModule,
     StoresModule,
   ],
   controllers: [],

@@ -10,6 +10,8 @@ import { PrismaService } from '@/prisma/prisma.service';
 import { KakaoService } from '@/kakao/kakao.service';
 import Decimal from 'decimal.js';
 
+let count = 0;
+
 @Injectable()
 export class StoresService {
   constructor(
@@ -47,7 +49,8 @@ export class StoresService {
   }
 
   async parseCsv() {
-    const absoluteFilePath = process.env.CSV_FILE_PATH;
+    const absoluteFilePath = `uploads/seoulStoreInf${count}.csv`;
+    count += 1;
 
     fs.createReadStream(absoluteFilePath)
       .pipe(iconv.decodeStream('euc-kr'))
