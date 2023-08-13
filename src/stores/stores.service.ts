@@ -102,10 +102,10 @@ export class StoresService {
   }
 
   async getStoreData(
-    maxLatitude: string,
-    maxLongitude: string,
-    minLatitude: string,
-    minLongitude: string,
+    maxLatitude: number,
+    maxLongitude: number,
+    minLatitude: number,
+    minLongitude: number,
   ) {
     let locations;
     const data = [];
