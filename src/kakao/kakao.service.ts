@@ -1,5 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import axios, { AxiosResponse } from 'axios';
+import Decimal from 'decimal.js';
 
 @Injectable()
 export class KakaoService {
@@ -19,20 +20,31 @@ export class KakaoService {
       const data = response.data.documents[0];
 
       if (data) {
-        const storeInfo: StoreInfo = {
-          longitude: data.x,
-          latitude: data.y,
-          roadNameAddress: data.road_address_name,
-          fullAddress: data.address_name,
-          phoneNumber: data.phone || null,
-        };
+        const longitude = new Decimal(data.x);
+        const latitude = new Decimal(data.y);
+        if (
+          longitude.lessThanOrEqualTo(127.1378545233667) &&
+          longitude.greaterThanOrEqualTo(126.95724345345953) &&
+          latitude.lessThanOrEqualTo(37.56669609415292) &&
+          latitude.greaterThanOrEqualTo(37.33639771464528)
+        ) {
+          const storeInfo: StoreInfo = {
+            longitude: longitude,
+            latitude: latitude,
+            roadNameAddress: data.road_address_name,
+            fullAddress: data.address_name,
+            phoneNumber: data.phone || null,
+          };
 
-        return storeInfo;
+          return storeInfo;
+        }
       } else {
         return null;
       }
     } catch (e) {
-      throw e;
+      throw new InternalServerErrorException([
+        '카카오 API 호출 단계에서 오류가 발생했습니다.',
+      ]);
     }
   }
 }
@@ -48,8 +60,8 @@ interface KakaoResponse {
 }
 
 interface StoreInfo {
-  latitude: string;
-  longitude: string;
+  latitude: Decimal;
+  longitude: Decimal;
   roadNameAddress: string;
   fullAddress: string;
   phoneNumber: string | null;
