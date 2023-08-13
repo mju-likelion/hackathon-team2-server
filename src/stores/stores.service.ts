@@ -70,8 +70,8 @@ export class StoresService {
           if (store) {
             const location = await this.prismaService.location.create({
               data: {
-                latitude: +store.latitude,
-                longitude: +store.longitude,
+                latitude: store.latitude,
+                longitude: store.longitude,
                 fullAddress: await this.removeDuplicateStr(
                   store.roadNameAddress,
                   store.fullAddress,
