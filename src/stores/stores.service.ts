@@ -206,7 +206,7 @@ export class StoresService {
     try {
       storeLocation = await this.prismaService.location.findFirstOrThrow({
         where: {
-          id: store.locationIdd,
+          id: store.locationId,
         },
       });
     } catch (e) {
