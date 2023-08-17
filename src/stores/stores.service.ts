@@ -50,9 +50,8 @@ export class StoresService {
 
   async parseCsv() {
     const absoluteFilePath = `uploads/seoulStoreInfo${count}.csv`;
-    count += 1;
 
-    if (!absoluteFilePath) {
+    if (!fs.existsSync(absoluteFilePath)) {
       throw new NotFoundException([
         `seoulStoreInfo${count}.cvs 파일이 존재하지 않습니다.`,
       ]);
@@ -66,8 +65,15 @@ export class StoresService {
           row['가맹점명칭'],
         );
 
+        const count = await this.prismaService.store.count({
+          where: {
+            name: row['가맹점명칭'],
+            categoryCode: await this.nameToCode(row['업종']),
+          },
+        });
+
         try {
-          if (store) {
+          if (store && !count) {
             const location = await this.prismaService.location.create({
               data: {
                 latitude: store.latitude,
@@ -95,6 +101,7 @@ export class StoresService {
           ]);
         }
       });
+    count += 1;
 
     return {
       message: ['데이터를 모두 정상적으로 저장했습니다.'],
