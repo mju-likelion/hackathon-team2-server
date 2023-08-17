@@ -22,11 +22,18 @@ export class KakaoService {
       if (data) {
         const longitude = new Decimal(data.x);
         const latitude = new Decimal(data.y);
+
+        const districts = [
+          '서울 강남구',
+          '서울 서초구',
+          '서울 동작구',
+          '서울 관악구',
+        ];
+
         if (
-          longitude.lessThanOrEqualTo(127.1378545233667) &&
-          longitude.greaterThanOrEqualTo(126.95724345345953) &&
-          latitude.lessThanOrEqualTo(37.56669609415292) &&
-          latitude.greaterThanOrEqualTo(37.33639771464528)
+          districts.some((district) =>
+            data.road_address_name.startsWith(district),
+          )
         ) {
           const storeInfo: StoreInfo = {
             longitude: longitude,
@@ -35,7 +42,6 @@ export class KakaoService {
             fullAddress: data.address_name,
             phoneNumber: data.phone || null,
           };
-
           return storeInfo;
         }
       } else {
