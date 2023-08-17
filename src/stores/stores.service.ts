@@ -66,8 +66,15 @@ export class StoresService {
           row['가맹점명칭'],
         );
 
+        const count = await this.prismaService.store.count({
+          where: {
+            name: row['가맹점명칭'],
+            categoryCode: await this.nameToCode(row['업종']),
+          },
+        });
+
         try {
-          if (store) {
+          if (store && count == 0) {
             const location = await this.prismaService.location.create({
               data: {
                 latitude: store.latitude,
