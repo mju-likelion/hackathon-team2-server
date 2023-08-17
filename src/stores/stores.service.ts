@@ -50,9 +50,8 @@ export class StoresService {
 
   async parseCsv() {
     const absoluteFilePath = `uploads/seoulStoreInfo${count}.csv`;
-    count += 1;
 
-    if (!absoluteFilePath) {
+    if (!fs.existsSync(absoluteFilePath)) {
       throw new NotFoundException([
         `seoulStoreInfo${count}.cvs 파일이 존재하지 않습니다.`,
       ]);
@@ -102,6 +101,7 @@ export class StoresService {
           ]);
         }
       });
+    count += 1;
 
     return {
       message: ['데이터를 모두 정상적으로 저장했습니다.'],
