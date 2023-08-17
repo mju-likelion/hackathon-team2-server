@@ -74,7 +74,7 @@ export class StoresService {
         });
 
         try {
-          if (store && count == 0) {
+          if (store && count === 0) {
             const location = await this.prismaService.location.create({
               data: {
                 latitude: store.latitude,
